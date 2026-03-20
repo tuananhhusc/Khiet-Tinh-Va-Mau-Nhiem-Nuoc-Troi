@@ -1,0 +1,44 @@
+
+D:\khiettinh\src\components\ContentRenderer.tsx
+  267:28  error  Error: Cannot reassign variable after render completes
+
+Reassigning `isFirstParagraph` after render has completed can cause inconsistent behavior on subsequent renders. Consider using state instead.
+
+D:\khiettinh\src\components\ContentRenderer.tsx:267:28
+  265 |             {section.paragraphs.map((para, pIdx) => {
+  266 |               const isFirst = isFirstParagraph && isIntroSection && pIdx === 0;
+> 267 |               if (isFirst) isFirstParagraph = false;
+      |                            ^^^^^^^^^^^^^^^^ Cannot reassign `isFirstParagraph` after render completes
+  268 |
+  269 |               return (
+  270 |                 <RenderParagraph  react-hooks/immutability
+
+D:\khiettinh\src\components\HeroHeader.tsx
+  9:38  warning  'title' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\khiettinh\src\components\TableOfContents.tsx
+   4:10  warning  'Menu' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  27:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\khiettinh\src\components\TableOfContents.tsx:27:5
+  25 |
+  26 |   useEffect(() => {
+> 27 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  28 |   }, []);
+  29 |
+  30 |   // Track which section is visible via Intersection Observer  react-hooks/set-state-in-effect
+
+D:\khiettinh\src\lib\parseContent.ts
+  119:10  warning  'isTableContent' is defined but never used        @typescript-eslint/no-unused-vars
+  125:21  warning  'lines' is defined but never used                 @typescript-eslint/no-unused-vars
+  211:9   warning  'tableEndIdx' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 7 problems (2 errors, 5 warnings)
+

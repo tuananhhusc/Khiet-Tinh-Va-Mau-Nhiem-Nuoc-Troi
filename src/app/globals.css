@@ -1,0 +1,498 @@
+@import "tailwindcss";
+
+/* ===== Catholic Academic Design System ===== */
+
+:root {
+  /* Default Parchment Light Mode */
+  --bg-primary: #FAF6F0;
+  --bg-secondary: #F5F0E8;
+  --bg-card: #FFFFFF;
+  --color-burgundy: #6B1D2A;
+  --color-burgundy-light: #8B3A47;
+  --color-burgundy-dark: #4A1019;
+  --color-gold: #C4A35A;
+  --color-gold-light: #D4B97A;
+  --color-gold-dark: #A68940;
+  --color-marian-blue: #2C4A7C;
+  --text-primary: #2D2A26;
+  --text-secondary: #5A5550;
+  --text-muted: #8A8580;
+  --border-light: #E5DFD5;
+  --border-medium: #D0C9BC;
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
+}
+
+[data-theme="sepia"] {
+  --bg-primary: #1C1A17; /* Deep Umber/Charcoal */
+  --bg-secondary: #26231F;
+  --bg-card: #22201D;
+  
+  /* Accents in Dark mode - focus on Gold and soft Crimson */
+  --color-burgundy: #D86D7D; /* Softened Crimson for dark mode visibility */
+  --color-burgundy-light: #E89BA7;
+  --color-gold: #D4B97A;
+  --color-gold-light: #F0DFC0;
+  --color-marian-blue: #9BB8D7;
+  
+  /* Text in Dark mode */
+  --text-primary: #E5DFD5; /* Creamy white */
+  --text-secondary: #B8B2AA;
+  --text-muted: #7A746D;
+  
+  /* Borders in Dark mode */
+  --border-light: #3D3A36;
+  --border-medium: #4D4A46;
+  
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
+}
+
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-burgundy: var(--color-burgundy);
+  --color-burgundy-light: var(--color-burgundy-light);
+  --color-gold: var(--color-gold);
+  --color-gold-light: var(--color-gold-light);
+  --color-marian-blue: var(--color-marian-blue);
+  --color-parchment: var(--bg-primary);
+  --color-parchment-dark: var(--bg-secondary);
+  --color-card: var(--bg-card);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-border-light: var(--border-light);
+  --color-border-medium: var(--border-medium);
+  --font-serif: var(--font-playfair);
+  --font-body: var(--font-lora);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  transition: background-color 0.5s ease, color 0.5s ease;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-lora), Georgia, 'Times New Roman', serif;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Background Texture Layer */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+/* Scholar Night Mode Adjustments */
+[data-theme="sepia"] body::before {
+  opacity: 0.15;
+  filter: invert(0.9) brightness(0.7);
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-burgundy-light);
+}
+
+/* ===== Drop Cap ===== */
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  font-size: 4.5rem;
+  line-height: 0.8;
+  padding-right: 0.6rem;
+  padding-top: 0.15rem;
+  color: var(--color-burgundy);
+  font-weight: 700;
+}
+
+/* ===== Citation Superscripts ===== */
+sup.citation {
+  font-size: 0.65em;
+  line-height: 0;
+  position: relative;
+  vertical-align: super;
+  top: -0.1em;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+sup.citation a {
+  color: var(--color-marian-blue);
+  text-decoration: none;
+  font-family: var(--font-lora), Georgia, serif;
+  font-weight: 600;
+  padding: 0 1px;
+}
+
+sup.citation a:hover {
+  color: var(--color-burgundy);
+  text-decoration: underline;
+}
+
+/* ===== Cross Motif Divider ===== */
+.cross-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.cross-divider::before,
+.cross-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border-medium),
+    transparent
+  );
+}
+
+.cross-divider svg {
+  color: var(--color-gold);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* ===== Prose Overrides ===== */
+.prose-academic h2 {
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  color: var(--color-burgundy);
+  font-weight: 700;
+  font-size: 1.65rem;
+  line-height: 1.3;
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.prose-academic h3 {
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  color: var(--color-burgundy-light);
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+}
+
+.prose-academic p {
+  margin-bottom: 1.25rem;
+  text-align: justify;
+  hyphens: auto;
+  font-size: var(--body-font-size, 1.05rem);
+}
+
+.prose-academic blockquote {
+  border-left: 3px solid var(--color-gold);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  padding: 1rem 1.25rem;
+  border-radius: 0 0.375rem 0.375rem 0;
+}
+
+/* ===== Comparison Table ===== */
+.comparison-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2rem 0;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.comparison-table thead th {
+  background: var(--color-burgundy);
+  color: #FAF6F0;
+  padding: 0.875rem 1rem;
+  text-align: left;
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.comparison-table thead th:first-child {
+  background: var(--color-burgundy-dark);
+}
+
+.comparison-table tbody td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.comparison-table tbody tr:nth-child(even) td {
+  background: var(--bg-secondary);
+}
+
+.comparison-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-table tbody td:first-child {
+  font-weight: 600;
+  color: var(--color-burgundy);
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  background: rgba(107, 29, 42, 0.04);
+  min-width: 140px;
+}
+
+/* ===== Reading Progress Bar ===== */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 100;
+  transform-origin: 0%;
+  background: linear-gradient(
+    90deg,
+    var(--color-burgundy) 0%,
+    var(--color-gold) 50%,
+    var(--color-burgundy-light) 100%
+  );
+}
+
+/* ===== Table of Contents ===== */
+.toc-link {
+  display: block;
+  padding: 0.35rem 0;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  line-height: 1.45;
+  border-left: 2px solid transparent;
+  padding-left: 0.75rem;
+}
+
+.toc-link:hover {
+  color: var(--color-burgundy);
+  border-left-color: var(--color-gold-light);
+}
+
+.toc-link.active {
+  color: var(--color-burgundy);
+  font-weight: 600;
+  border-left-color: var(--color-burgundy);
+  background: rgba(107, 29, 42, 0.04);
+}
+
+.toc-link.level-3 {
+  padding-left: 1.5rem;
+  font-size: 0.78rem;
+}
+
+/* ===== Reference List ===== */
+.reference-item {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-secondary);
+}
+
+.reference-item:last-child {
+  border-bottom: none;
+}
+
+.reference-item .ref-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--color-burgundy);
+  color: #FAF6F0;
+  border-radius: 50%;
+  font-size: 0.65rem;
+  font-weight: 700;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.reference-item a {
+  color: var(--color-marian-blue);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.reference-item a:hover {
+  text-decoration: underline;
+  color: var(--color-burgundy);
+}
+
+/* ===== Bullet List Styles ===== */
+.prose-academic ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0;
+}
+
+.prose-academic ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-academic ul li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--color-gold);
+  font-size: 0.7rem;
+  top: 0.35rem;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 1024px) {
+  .drop-cap::first-letter {
+    font-size: 3.5rem;
+  }
+
+  .prose-academic h2 {
+    font-size: 1.4rem;
+    margin-top: 2.5rem;
+  }
+
+  .prose-academic h3 {
+    font-size: 1.15rem;
+    margin-top: 1.75rem;
+  }
+
+  .comparison-table {
+    font-size: 0.8rem;
+  }
+
+  .comparison-table thead th,
+  .comparison-table tbody td {
+    padding: 0.65rem 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .drop-cap::first-letter {
+    font-size: 3rem;
+    padding-right: 0.4rem;
+  }
+
+  .prose-academic p {
+    text-align: left;
+  }
+
+  .comparison-table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* ===== Selection Color ===== */
+::selection {
+  background: rgba(107, 29, 42, 0.15);
+  color: var(--text-primary);
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  .progress-bar,
+  .toc-link,
+  aside,
+  button,
+  nav,
+  .fixed,
+  .cross-divider::before,
+  .cross-divider::after {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    background-image: none !important;
+    color: black !important;
+    font-size: 12pt !important;
+    line-height: 1.5 !important;
+  }
+
+  .prose-academic {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .prose-academic h2 {
+    page-break-after: avoid;
+    border-bottom: 2px solid #000;
+  }
+
+  .prose-academic p {
+    font-size: 12pt !important;
+    text-align: justify;
+  }
+
+  .comparison-table {
+    page-break-inside: avoid;
+    border: 1px solid #000;
+    font-size: 10pt !important;
+  }
+
+  .comparison-table thead th {
+    background: #eee !important;
+    color: black !important;
+    border-bottom: 1px solid #000;
+  }
+
+  .comparison-table tbody td {
+    background: transparent !important;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .reference-item {
+    page-break-inside: avoid;
+  }
+
+  @page {
+    margin: 2cm;
+  }
+}
